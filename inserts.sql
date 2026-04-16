@@ -1,2 +1,3 @@
 INSERT INTO STUDENT VALUES ('RP031006', 'Rebecca', 'Therese', 'Post');
+INSERT INTO STUDENT VALUES ('NW050506', 'Nicole', 'Katherine', 'Wood');
 SELECT * FROM STUDENT;
