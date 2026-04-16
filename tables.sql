@@ -5,12 +5,47 @@ CREATE TABLE Student (
     L_Name varchar2(20)
 );
 
+CREATE TABLE Department (
+    Dept_ID varchar2(8) PRIMARY KEY NOT NULL,
+    Dept_Name varchar2(30)
+);
+CREATE TABLE Professor (
+    Prof_ID varchar2(8) PRIMARY KEY NOT NULL,
+    Prof_Name varchar2(25),
+    Dept_ID varchar2(8), 
+    FOREIGN KEY REFERENCES Department(Dept_ID)
+);
+
 CREATE TABLE Course (
     CRN varchar2(8) PRIMARY KEY NOT NULL,
-    Prof_ID varchar2(8), -- FOREIGN KEY REF
+    Prof_ID varchar2(8),
+    FOREIGN KEY REFERENCES Professor(Prof_ID),
     Course_Name varchar2(15),
     Semester varchar2(10),
     Year int,
     Credits int, -- MUST BE > 0
-    Dept_ID varchar2(8) -- FK REF
+    Dept_ID varchar2(8),
+    FOREIGN KEY REFERENCES Department(Dept_ID)
+);
+CREATE Table Assignment (
+    Assignment_ID varchar2(8) PRIMARY KEY NOT NULL,
+    Assignment_Name varchar2(25)
+);
+CREATE TABLE Student_Record (
+    Record_ID varchar2(8) PRIMARY KEY NOT NULL,
+    Student_ID varchar2(8),
+    FOREIGN KEY REFERENCES Student(Student_ID),
+    CRN varchar2(8),
+    FOREIGN KEY REFERENCES Course(CRN),
+    Participation int,
+    Test1 int,
+    Test2 int,
+    Final_Proj int, 
+    Final_Exam int
+);
+CREATE TABLE Enrolled_In (
+    Student_ID varchar2(8),
+    Foreign KEY REFERENCES Student(Student_ID),
+    Course_ID varchar2(8),
+    FOREIGN KEY REFERENCES Course(CRN)
 );
