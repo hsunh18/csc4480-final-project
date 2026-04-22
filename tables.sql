@@ -4,11 +4,6 @@ CREATE TABLE Student (
     M_Name varchar2(20),
     L_Name varchar2(20)
 );
-
-CREATE TABLE Department (
-    Dept_ID varchar2(8) PRIMARY KEY NOT NULL,
-    Dept_Name varchar2(30)
-);
 CREATE TABLE Professor (
     Prof_ID varchar2(8) PRIMARY KEY NOT NULL,
     Prof_Name varchar2(25),
@@ -41,11 +36,19 @@ CREATE TABLE Student_Record (
     Test1 int,
     Test2 int,
     Final_Proj int, 
-    Final_Exam int
+    Final_Exam int,
+    Extra_Credit int
 );
 CREATE TABLE Enrolled_In (
     Student_ID varchar2(8),
     Foreign KEY REFERENCES Student(Student_ID),
     Course_ID varchar2(8),
     FOREIGN KEY REFERENCES Course(CRN)
+);
+CREATE TABLE Enrolled_In ( --spine table
+    Student_ID varchar2(8),
+    CONSTRAINT fk_Enrolled_In_Student FOREIGN KEY (Student_ID) REFERENCES Student(Student_ID),
+    Course_ID varchar2(8),
+    CONSTRAINT fk_Enrolled_In_Course FOREIGN KEY (Course_ID) REFERENCES Course(CRN),
+    CONSTRAINT pk_Enrolled_In PRIMARY KEY (Student_ID, Course_ID)
 );
