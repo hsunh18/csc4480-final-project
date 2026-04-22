@@ -26,6 +26,7 @@ CREATE Table Assignment (
     Assignment_ID varchar2(8) PRIMARY KEY NOT NULL,
     Assignment_Name varchar2(25)
 );
+
 CREATE TABLE Student_Record (
     Record_ID varchar2(8) PRIMARY KEY NOT NULL,
     Student_ID varchar2(8),
