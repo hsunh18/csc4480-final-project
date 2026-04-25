@@ -26,6 +26,7 @@ CREATE TABLE Course (
     Prof_ID varchar2(8),
     CONSTRAINT fk_Course_Prof FOREIGN KEY (Prof_ID) REFERENCES Professor(Prof_ID)
 );
+
 CREATE TABLE Student_Record (
     Record_ID varchar2(8) PRIMARY KEY NOT NULL,
     Student_ID varchar2(8),
