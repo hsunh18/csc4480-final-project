@@ -1,7 +1,13 @@
-CREATE TABLE Department (
-    Dept_ID   varchar2(8) PRIMARY KEY NOT NULL,
-    Dept_Name varchar2(50)
-);
+--drops
+DROP TABLE Grade_Category CASCADE CONSTRAINTS;
+DROP TABLE Assigns CASCADE CONSTRAINTS;
+DROP TABLE Enrolled_In CASCADE CONSTRAINTS;
+DROP TABLE Student_Record CASCADE CONSTRAINTS;
+DROP TABLE Course CASCADE CONSTRAINTS;
+DROP TABLE Assignment CASCADE CONSTRAINTS;
+DROP TABLE Professor CASCADE CONSTRAINTS;
+DROP TABLE Student CASCADE CONSTRAINTS;
+
 CREATE TABLE Student (
     Student_ID varchar2(8) PRIMARY KEY NOT NULL,
     F_Name varchar2(20),
@@ -10,9 +16,7 @@ CREATE TABLE Student (
 );
 CREATE TABLE Professor (
     Prof_ID varchar2(8) PRIMARY KEY NOT NULL,
-    Prof_Name varchar2(25),
-    Dept_ID varchar2(8),
-    CONSTRAINT fk_Prof_Dept FOREIGN KEY (Dept_ID) REFERENCES Department(Dept_ID)
+    Prof_Name varchar2(25)
 );
 CREATE TABLE Assignment (
     Assignment_ID varchar2(8) PRIMARY KEY NOT NULL,
@@ -22,13 +26,11 @@ CREATE TABLE Course (
     CRN varchar2(8) PRIMARY KEY NOT NULL,
     Course_ID varchar2(8),
     Course_Name varchar2(50),
-    Dept_ID varchar2(8),
     Semester varchar2(10),
     Year int,
     Credits int CHECK (Credits > 0),
     Prof_ID varchar2(8),
-    CONSTRAINT fk_Course_Prof FOREIGN KEY (Prof_ID) REFERENCES Professor(Prof_ID),
-    CONSTRAINT fk_Course_Dept FOREIGN KEY (Dept_ID) REFERENCES Department(Dept_ID)
+    CONSTRAINT fk_Course_Prof FOREIGN KEY (Prof_ID) REFERENCES Professor(Prof_ID)
 );
 CREATE TABLE Student_Record (
     Record_ID varchar2(8) PRIMARY KEY NOT NULL,
@@ -49,17 +51,17 @@ CREATE TABLE Student_Record (
 );
 CREATE TABLE Enrolled_In (
     Student_ID varchar2(8),
-    Course_ID varchar2(8),
-    CONSTRAINT pk_Enrolled_In PRIMARY KEY (Student_ID, Course_ID),
+    CRN varchar2(8),
+    CONSTRAINT pk_Enrolled_In PRIMARY KEY (Student_ID, CRN),
     CONSTRAINT fk_Enrolled_In_Student FOREIGN KEY (Student_ID) REFERENCES Student(Student_ID),
-    CONSTRAINT fk_Enrolled_In_Course FOREIGN KEY (Course_ID) REFERENCES Course(CRN)
+    CONSTRAINT fk_Enrolled_In_Course FOREIGN KEY (CRN) REFERENCES Course(CRN)
 );
 CREATE TABLE Assigns (
     Assignment_ID varchar2(8),
-    Course_ID varchar2(8),
-    CONSTRAINT pk_Assigns PRIMARY KEY (Assignment_ID, Course_ID),
+    CRN varchar2(8),
+    CONSTRAINT pk_Assigns PRIMARY KEY (Assignment_ID, CRN),
     CONSTRAINT fk_Assigns_Assignment FOREIGN KEY (Assignment_ID) REFERENCES Assignment(Assignment_ID),
-    CONSTRAINT fk_Assigns_Course FOREIGN KEY (Course_ID) REFERENCES Course(CRN)
+    CONSTRAINT fk_Assigns_Course FOREIGN KEY (CRN) REFERENCES Course(CRN)
 );
 CREATE TABLE Grade_Category (
     Category_ID varchar2(8) PRIMARY KEY NOT NULL,
